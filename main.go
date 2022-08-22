@@ -4,7 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"example.com/app/storage"
+	"github.com/qwark97/go-images/handlers"
+	"github.com/qwark97/go-images/storage"
 )
 
 const (
@@ -14,7 +15,7 @@ const (
 func main() {
 	log.Printf("connect to DB")
 	storage := storage.NewStorage()
-	handler := NewHandlers(storage)
+	handler := handlers.NewHandlers(storage)
 
 	mux := http.NewServeMux()
 

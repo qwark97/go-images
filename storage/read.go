@@ -15,7 +15,7 @@ type ReadResp struct {
 	CreatedAt   primitive.DateTime `json:"createdAt" bson:"createdAt"`
 }
 
-func (s *Storage) Read() ([]ReadResp, error) {
+func (s *MongoStorage) Read() ([]ReadResp, error) {
 	var cursor *mongo.Cursor
 	var err error
 	var response = []ReadResp{}

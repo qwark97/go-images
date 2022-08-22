@@ -19,7 +19,7 @@ type CreateResp struct {
 	Msg    string `json:"message"`
 }
 
-func (s *Storage) Create(data CreateData) (CreateResp, error) {
+func (s *MongoStorage) Create(data CreateData) (CreateResp, error) {
 	ctx := context.TODO()
 	data.CreatedAt = primitive.NewDateTimeFromTime(time.Now())
 	if _, err := s.collection.InsertOne(ctx, data); err != nil {

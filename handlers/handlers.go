@@ -1,20 +1,20 @@
-package main
+package handlers
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"example.com/app/storage"
+	"github.com/qwark97/go-images/storage"
 )
 
-func NewHandlers(s *storage.Storage) *Handlers {
+func NewHandlers(s storage.Storage) *Handlers {
 	return &Handlers{
 		s: s,
 	}
 }
 
 type Handlers struct {
-	s *storage.Storage
+	s storage.Storage
 }
 
 func (h *Handlers) Post(w http.ResponseWriter, r *http.Request) {
@@ -32,6 +32,7 @@ func (h *Handlers) Post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(http.StatusNoContent)
 	json.NewEncoder(w).Encode(resp)
 }
 

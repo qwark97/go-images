@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:5.0.11
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - guild-mongovolume:/data/db
+      - guild-mongoconfig:/data/configdb
+
+volumes:
+  guild-mongovolume:
+    name: guild-mongovolume
+  guild-mongoconfig:
+    name: guild-mongoconfig
+
+networks:
+  default:
+    name: go-guild
