@@ -39,6 +39,7 @@ func (h *Handlers) Post(w http.ResponseWriter, r *http.Request) {
 func (h *Handlers) Get(w http.ResponseWriter, r *http.Request) {
 	var err error
 	var resp []storage.ReadResp
+	w.Header().Add("Content-Type", "application/json")
 
 	if resp, err = h.s.Read(); err != nil {
 		errResp(err, w)
