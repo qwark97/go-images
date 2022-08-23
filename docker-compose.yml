@@ -4,11 +4,16 @@ services:
   mongo:
     image: mongo:5.0.11
     container_name: mongo
-    ports:
-      - 27017:27017
     volumes:
       - guild-mongovolume:/data/db
       - guild-mongoconfig:/data/configdb
+
+  go-app:
+    build: .
+    image: localhost/go-image:1
+    container_name: go-app
+    ports:
+      - 8080:8080
 
 volumes:
   guild-mongovolume:
