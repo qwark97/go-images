@@ -1,16 +1,20 @@
-FROM golang:1.19.0-bullseye AS builder
+FROM golang:1.19.0-bullseye AS environment
 WORKDIR /app
-# only linux
-ENV GOOS=linux
-# only amd64
-ENV GOARCH=amd64
 # disable cross-compiling (might cause some dynamic links to libc/libmusl; source: https://stackoverflow.com/a/55106860/14181841)
 ENV CGO_ENABLED=0
 
 COPY go.mod go.sum ./
 RUN go mod download
-
 COPY . ./
+
+FROM environment AS unit-tests
+CMD [ "go", "test", "./handlers", "./storage", "-cover" ]
+
+FROM environment AS integration-tests
+ENV MONGO_ADDR="localhost"
+CMD [ "go", "test", "./integration_tests", "--coverpkg=./storage", "-cover" ]
+
+FROM environment AS builder
 # build the binary with debug information removed
 RUN go build -ldflags="-w -s" -o go-images .
 
