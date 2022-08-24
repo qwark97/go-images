@@ -1,9 +1,5 @@
 FROM golang:1.19.0-bullseye AS builder
 WORKDIR /app
-# only linux
-ENV GOOS=linux
-# only amd64
-ENV GOARCH=amd64
 # disable cross-compiling (might cause some dynamic links to libc/libmusl; source: https://stackoverflow.com/a/55106860/14181841)
 ENV CGO_ENABLED=0
 
