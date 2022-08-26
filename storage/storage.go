@@ -2,13 +2,15 @@ package storage
 
 import (
 	"context"
+	"fmt"
+	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-const uri = "mongodb://localhost:27017/"
+var uri = fmt.Sprintf("mongodb://%s:27017/", os.Getenv("MONGO_ADDR"))
 
 func NewStorage() *MongoStorage {
 	// Create a new client and connect to the server
